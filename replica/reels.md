@@ -76,3 +76,33 @@ criar um software nível Spotify… isso é legal".
 Spotifast existe, mas **não é** um Spotify grátis nem foi feito por uma skill
 de clonagem. É um *cliente* open source em Rust que usa a sua conta e
 **exige Premium** para tocar música.
+
+## 6. @_asheerwad_: "Feelora" (post em carrossel, 7 imagens, 14/06/2026)
+https://www.instagram.com/p/DZkZu1CmgPY/
+
+Conceito de app web que mostra a biblioteca do Spotify como um universo 3D.
+Legenda: "E se você pudesse entrar na sua música em vez de só ouvir?…
+visuais 3D imersivos, letras sincronizadas e atmosferas guiadas pela emoção.
+Sem rolagem infinita, sem playlists estáticas." Hashtags #ui #spotify
+#uidesign #webdesigner #vibecoding.
+
+| slide | o que mostra |
+| --- | --- |
+| 1 | tela inicial preta: esfera de pontos em degradê rosa→azul com uma estrela no centro, "SPATIAL MUSIC UNIVERSE", **Feelora**, "Every song becomes a star in your personal galaxy", botão verde **Connect Spotify** e link "Explore demo universe →" |
+| 2 | carregando: esfera de pontos brancos, "Building your universe · Loading Spotify library…" com bolinhas coloridas e barra de progresso |
+| 3 | **"Universe"**: a câmera está *dentro* de uma esfera forrada de capas de álbum (centenas), que curva nas bordas; topo com logo FEELORA, abas **Universe / Discover / Library**, filtro "Sphere: All", busca "Search Universe" e "Disconnect"; mini player embaixo |
+| 4 | o mesmo, com um painel de vidro fosco **"Synced lyrics"**: verso atual em branco e os próximos esmaecidos |
+| 5 | **modo foco**: capa grande à esquerda com brilho dourado, título e artista, letra em destaque, barra de progresso com tempo e controles (anterior / pause / próxima) |
+| 6 | **"Discover · Space"** ("algorithmic curation"): lista lateral de músicas sobre a esfera, com as letras ao lado (inclusive marcação de instrumental `[01:17.50] ♫♫♫`) |
+| 7 | **"Library · Music Universe"**: abas All tracks / Liked songs / Spotify e lista das músicas do usuário |
+
+**Como parece ter sido feito (inferido, sem código público encontrado):**
+login OAuth do Spotify + Web API (biblioteca e curtidas), capas mapeadas
+numa esfera 3D em WebGL (provavelmente Three.js), letras no formato LRC com
+tempo (o padrão do LRCLIB; o Spotify não tem API pública de letras),
+"Discover" com lógica própria (recomendações não estão disponíveis para apps
+novos) e a hashtag #vibecoding sugere que foi feito com ajuda de IA.
+
+**Para o Spotify-Vinils:** referências diretas para tela de conexão,
+carregamento animado, letras sincronizadas via LRCLIB e "modo foco" com a
+capa grande e brilho na cor da capa (combina com o vinil girando).
