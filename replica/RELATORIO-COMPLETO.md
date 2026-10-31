@@ -6,7 +6,7 @@ Os arquivos detalhados continuam ao lado: `recon.md`, `features.csv`,
 
 **Índice**
 1. Como a pesquisa foi feita
-2. Os 5 reels, um por um
+2. Os 7 posts (6 reels e 1 carrossel), um por um
 3. Spotify Web por dentro (recon)
 4. Spotifast: o "Spotify grátis"
 5. Spotify Web API: o que tem dentro
@@ -21,6 +21,7 @@ Os arquivos detalhados continuam ao lado: `recon.md`, `features.csv`,
 | etapa | ferramenta | observação |
 | --- | --- | --- |
 | Assistir aos reels | skill **watch-video** (já instalada no ambiente) + `yt-dlp` + `ffmpeg` | 20 quadros por vídeo, montados em pranchas para leitura |
+| Ver o carrossel (post 6) | Playwright no *embed* público do post | o `yt-dlp` não extrai imagens de carrossel; capturei os 7 slides um a um |
 | Ouvir os reels | **faster-whisper** (modelo `small`, multilíngue) | o pipeline da skill quebrou por incompatibilidade com o PyAV; contornei passando o áudio direto como array |
 | Mapear o Spotify Web | skill **replica-recon** (repo `Jakeschincariol/replica-skill`) + Playwright | navegação **sem login**, em ritmo humano, só páginas públicas; sem ler o código nem copiar APIs internas |
 | Investigar o Spotifast | clone de leitura do repo `crmne/fastpotify` + busca na web | `spotifast.rocks` e `techradar.com` continuam bloqueados no ambiente |
@@ -32,7 +33,17 @@ Domínios que foram liberados no ambiente durante o processo:
 
 ---
 
-## 2. Os 5 reels, um por um
+## 2. Os 7 posts, um por um
+
+| # | perfil | o que é | relevância para o projeto |
+| --- | --- | --- | --- |
+| 1 | @rick.theengineer | como o Spotify funciona por dentro (system design) | entender playback, CDN, buffer e estado |
+| 2 | @adrian.wmv | tutorial do Spicetify (temas e extensões no Spotify Desktop) | demanda por personalização |
+| 3 | @synsation_ | CD player web feito no Replit | estojo que abre, capa personalizada, "presente" |
+| 4 | @aelisstudio | app MD Vinyl (iPad como toca-discos) | **referência visual principal** |
+| 5 | @oreidosites | "criaram o Spotify de graça" (Spotifast) | checagem de fatos; modelo de auth |
+| 6 | @_asheerwad_ | Feelora: biblioteca do Spotify como universo 3D | letras sincronizadas, modo foco, tela de conexão |
+| 7 | @asimov.academy | "Spotify 3D" com fitas cassete e iPod feito com IA | **o método de construção** com IA + Three.js |
 
 ### Reel 1: @rick.theengineer, "Let's design Spotify"
 - **Link:** instagram.com/reel/DcBhby3sl7_ · **Duração:** 2min53s · **Idioma:** inglês · ~60 mil curtidas
@@ -148,6 +159,90 @@ a partir de uma playlist e compartilhar por link.
 
 **Checagem:** veja a seção 4. O Spotifast é real, mas **não é um Spotify
 grátis** e **não foi feito por uma skill de clonagem**.
+
+---
+
+### Post 6: @_asheerwad_, "Feelora" (carrossel de 7 imagens)
+- **Link:** instagram.com/p/DZkZu1CmgPY · **Publicado:** 14/06/2026 · 73 curtidas, 13 comentários
+- **Legenda:** "E se você pudesse *entrar* na sua música em vez de só ouvir? Apresentando Feelora: um novo jeito de viver sua biblioteca do Spotify com visuais 3D imersivos, letras sincronizadas e atmosferas guiadas pela emoção. Sem rolagem infinita. Sem playlists estáticas. Só você, sua música e um universo construído em volta de cada canção. ✨ Explore suas faixas numa esfera viva · 🎤 Siga as letras em tempo real · 🌌 Viva a música de forma visual, emocional e espacial. Não escute música. Entre nela."
+- **Hashtags:** #ui #spotify #uidesign #webdesigner #vibecoding
+
+**Imagem por imagem:**
+| slide | o que mostra |
+| --- | --- |
+| 1 | **Tela inicial**: fundo preto, esfera de pontos em degradê rosa → roxo → azul com uma estrela branca no centro; "SPATIAL MUSIC UNIVERSE", **Feelora**, "Step inside your 3D music universe. Every song becomes a star in your personal galaxy, ready to be explored from the center."; botão verde **Connect Spotify**; link "Explore demo universe →" |
+| 2 | **Carregando**: a esfera em pontos brancos, "Building your universe · Loading Spotify library…", quatro bolinhas coloridas e uma barra de progresso |
+| 3 | **Universe**: a câmera fica *dentro* de uma esfera forrada de centenas de capas de álbum, que curvam nas bordas. No topo: logo FEELORA, abas **Universe / Discover / Library**, filtro "Sphere: All", busca "Search Universe" e "Disconnect". Embaixo: mini player tocando "blue" |
+| 4 | **Letras sincronizadas**: painel de vidro fosco "Synced lyrics · blue" sobre as capas; o verso atual em branco, os seguintes esmaecidos |
+| 5 | **Modo foco**: capa grande (aquarela de praia) com brilho dourado em volta; "blue · yung kai"; a letra em destaque; barra de tempo (0:46 / 3:34) e botões anterior / pause / próxima; um X para fechar |
+| 6 | **Discover · Space** ("algorithmic curation"): lista lateral de músicas (my light, Drawer, I Think They Call This Love, Beautiful Things, Azizam…) sobre a esfera, com o painel de letras ao lado; nos trechos instrumentais, `[01:17.50] ♫♫♫` |
+| 7 | **Library · Music Universe** ("Your library"): abas All tracks / Liked songs / Spotify e a lista das músicas do usuário (Hey There Delilah, MONEY, Sunflower, Until I Die, Starboy…) |
+
+**Como parece ter sido feito** (dedução: não há código, site ou demo
+públicos, nem no GitHub nem na busca web):
+- login OAuth do Spotify e a Web API para a biblioteca e as curtidas;
+- a esfera de capas em WebGL, provavelmente **Three.js**;
+- letras com tempo no formato LRC (`[01:17.50]`), o padrão do **LRCLIB**, uma base aberta de letras (o Spotify não tem API pública de letras);
+- o "Discover" com lógica própria, já que as recomendações não estão mais disponíveis para apps novos;
+- a hashtag #vibecoding indica que foi feito com ajuda de IA.
+
+**O que aproveitar:** tela de conexão, carregamento animado, **letras
+sincronizadas via LRCLIB** e o **modo foco** com a capa grande e um brilho na
+cor dela.
+
+---
+
+### Reel 7: @asimov.academy, "Spotify 3D" com fitas cassete e iPod
+- **Link:** instagram.com/reel/DerUf07GArm · **Duração:** 2min05s · **Idioma:** português · **Publicado:** 19/10/2026
+- **Legenda:** "É assim que você transforma músicas do YouTube no seu próprio Spotify em formato 3D. Cada playlist virou uma fita cassete. Ao clicar em uma delas, as músicas tocam num iPod, com o fundo mudando de cor conforme a capa do álbum. E você não precisa escrever uma linha de código… Comenta SPOTIFY pra receber o link no direct."
+- **Formato:** um rapaz de óculos em frente à câmera (fundo roxo), com gravações de tela inseridas no topo.
+
+**O resultado:**
+- O site se chama "SPOTIFY 3D · Arquivo de fitas". Cada **álbum ou playlist é uma fita cassete 3D**, com a capa no rótulo ("Greatest Hits II · Queen", "Appetite for Destruction", "Back in Black", "reputation"), empilhadas como livros numa estante.
+- Ao clicar numa fita, um **fio 3D com física** a liga a um **iPod clássico 3D**, com roda de controle e tela mostrando a capa e "Bohemian Rhapsody". O iPod toca a música.
+- O **fundo é uma persiana ondulada animada que muda de cor conforme a capa**, e alguns elementos reagem à batida.
+
+**Linha do tempo:**
+| tempo | fala (resumo) | na tela |
+| --- | --- | --- |
+| 0:00 | "Transformei as músicas que baixei no YouTube no meu próprio Spotify 3D, sem escrever uma linha de código" | o site pronto: fita + iPod + fio |
+| 0:08 | "Só baixei músicas, as capas e mandei referências visuais para a IA" | — |
+| 0:14 | "Ela criou a fita cassete em 3D, recriou o iPod e troca o fundo conforme a capa" | a pilha de fitas |
+| 0:28 | "Baixei as músicas no **Y2meta** e extraí o MP3" | site do Y2meta com as opções 320 kbps / 256 kbps |
+| 0:34 | "Busquei as capas no Google" | Google Imagens: "guns n roses album" |
+| 0:37 | "Criei um projeto em branco no **Astro**, um framework para sites leves" | terminal: `npm create astro@latest`, pasta `spotify3d` |
+| 0:44 | "Abri no editor de código com IA integrada" | **Antigravity IDE** (Google), com chat de agente e modelo Gemini Flash |
+| 0:49 | "Busquei referências no **Awwwards**, um acervo de sites premiados" | awwwards.com/websites/3d |
+| 0:58 | "Achei esse site de livros; em vez de livros, imaginei fitas" | site com livros empilhados |
+| 1:05 | "Pedi para a IA configurar o projeto com **Three.js**, que roda 3D no navegador" | código no editor |
+| 1:14 | "Passei todo o contexto para ela não alucinar" | documento "**Contrato Canônico**" (ver abaixo) |
+| 1:21 | "Criei um prompt para gerar o modelo 3D da fita; ela empilhou as fitas como na referência" | "# Prompt 2: Modelo 3D da fita cassete · Você vai criar o arquivo `src/scripts/tape-shelf.js` de um projeto Astro chamado 'Spotify 3D'" |
+| 1:32 | "Pedi o modelo 3D de um iPod para controlar a playlist" | — |
+| 1:36 | "Pedi um fio 3D com física real, que reage quando mexo na fita" | fita conectada ao iPod |
+| 1:44 | "Para o fundo e os componentes que reagem à batida, copiei prompts prontos de sites de componentes, como o **React Bits**" | fundo "Green Vertical Blinds" de uma biblioteca de backgrounds |
+| 1:55 | "Não escrevi uma linha de código; só orientei e corrigi a IA" | diff de `index.astro` no editor |
+| 2:01 | "Comenta SPOTIFY que eu te mando o link" | o site pronto |
+
+**O "Contrato Canônico"** (o documento de contexto que ele deu à IA):
+- uma tabela com cada arquivo e o prompt que o cria;
+- componentes nomeados (`SolarisPlayer`) e a função `extractCoverPalette`, que devolve `{ top, bottom, accent }` (três cores tiradas da capa);
+- variáveis de estado e funções globais em `index.astro`;
+- IDs do DOM e camadas (z-index) fixos: `#detail-background`, `#cassette-cable`, `.workspace/.topbar`, `.side-rail`…;
+- tipografia **Fraunces** + **JetBrains Mono** e Font Awesome 6.7.2;
+- interface 100% em português.
+
+Arquivos que aparecem no projeto: `tape-shelf.js`, `tape-cable.js`,
+`color-palette.js`, `fluted-background.js`, `generate-covers.mjs`,
+`index.astro`, `data/albums.json` e pastas de MP3 e capas por artista.
+
+**Atenção:**
+- Não tem Spotify de verdade: é um **player de MP3 locais**.
+- **Baixar MP3 do YouTube viola os termos do YouTube e os direitos autorais.** Serve como protótipo pessoal, não para publicar.
+
+**O que aproveitar:** o **método**. Referência no Awwwards, documento de
+contexto fixo, um prompt por arquivo, Three.js, paleta de três cores tirada
+da capa para pintar o fundo e elementos que reagem ao áudio. No nosso, a
+música vem da API do Spotify, não de MP3 baixados.
 
 ---
 
@@ -323,6 +418,12 @@ Para eu puxar os dados reais da sua conta:
 | **Estojo que abre** e o disco entra no player | reel 3 | ✅ animação |
 | **Capa personalizada / "presente" por link** | reel 3 | ⚠️ dá para criar uma playlist e subir a capa, mas o amigo precisa de conta (e de Premium para tocar inteiro) |
 | **Temas** | reel 2 | ✅ |
+| **Letras sincronizadas** | post 6 (Feelora) | ✅ via **LRCLIB** (base aberta, formato LRC com tempo), casando pela faixa e pela duração; a API do Spotify não tem letras |
+| **Modo foco**: capa grande com brilho na cor dela | post 6 | ✅ |
+| Tela de conexão e **carregamento animado** ("montando sua coleção") | post 6 | ✅ |
+| Objeto 3D (vinil/toca-discos) em **Three.js**, com cabo ou braço com física | reel 7 | ✅ |
+| **Paleta de 3 cores** tirada da capa (`top/bottom/accent`) para o fundo | reel 7 | ✅ |
+| Elementos que **reagem à batida** | reel 7 | ⚠️ o Web Playback SDK não dá acesso ao áudio; dá para simular pelo tempo da música, mas não analisar o som de verdade |
 | Busca | Spotify Web | ✅ 10 por página |
 | Play instantâneo e retomar de onde parou | reel 1 | ✅ o SDK e o Spotify Connect guardam o estado |
 | Funcionar bem no celular | site original é fraco | ⚠️ o Web Playback SDK não toca em navegadores de celular; no celular, o app vira um **controle remoto** de outro aparelho |
@@ -334,6 +435,7 @@ Para eu puxar os dados reais da sua conta:
 
 ### 6.3 O que evitar
 - Bloquear anúncios, usar librespot ou rotas privadas: viola os termos e pode ser bloqueado.
+- Usar MP3 baixados do YouTube (como no reel 7): viola direitos autorais.
 - Usar o nome, o logo, o verde ou os textos do Spotify: a identidade precisa ser própria (`/replica-brand`), com atribuição "conteúdo via Spotify".
 
 ### 6.4 Tamanho do projeto
@@ -347,16 +449,17 @@ As partes difíceis são:
 
 ## 7. Próximos passos (método replica)
 
-1. **`/replica-architect`**: decidir as tecnologias (sugestão: Vite + React/TypeScript, só front-end com PKCE, Web Playback SDK, sem servidor próprio), as rotas e o modelo de dados.
+1. **`/replica-architect`**: decidir as tecnologias (sugestão: Vite + React/TypeScript ou Astro, **Three.js** para o vinil, só front-end com PKCE, Web Playback SDK, letras pelo LRCLIB, sem servidor próprio), as rotas e o modelo de dados. Escrever um **documento de contexto fixo** para a IA, como o "Contrato Canônico" do reel 7: arquivos, nomes, camadas, fontes e idioma.
 2. **`/replica-design`**: tokens próprios (cores, fontes, espaçamentos) e os componentes do vinil.
-3. **`/replica-build`**: na ordem: login → biblioteca em coverflow → toca-discos → controles → busca → personalização do vinil → temas → estojo e presente.
+3. **`/replica-build`**: na ordem: login (tela de conexão + carregamento) → biblioteca em coverflow → toca-discos → controles → busca → letras sincronizadas e modo foco → personalização do vinil → temas → estojo e presente. Um prompt por arquivo, como no reel 7.
 4. **`/replica-test`** e **`/replica-diff`**: comparar com o mapa e com a lista de funcionalidades (`features.csv`).
 5. **`/replica-brand`** e **`/replica-launch`**: nome e cara próprios.
 
 ---
 
 ## 8. Fontes
-- Reels: instagram.com/reel/DcBhby3sl7_ · /Deuivi5x7yc · /DcB2EJRPAuk · /DbKosHuxAN7 · /DecCjQyufza
+- Reels: instagram.com/reel/DcBhby3sl7_ · /Deuivi5x7yc · /DcB2EJRPAuk · /DbKosHuxAN7 · /DecCjQyufza · /DerUf07GArm
+- Carrossel: instagram.com/p/DZkZu1CmgPY (Feelora)
 - Spotify Web: open.spotify.com/intl-pt (visitado sem login em 31/10/2026)
 - Replica skill: github.com/Jakeschincariol/replica-skill
 - Spotifast: github.com/crmne/fastpotify · sourceforge.net/projects/fastpotify.mirror · pcgameshardware.de (teste de RAM) · techradar.com · alternativeto.net/software/fastpotify
