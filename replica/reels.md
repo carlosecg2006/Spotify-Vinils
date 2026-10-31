@@ -106,3 +106,37 @@ novos) e a hashtag #vibecoding sugere que foi feito com ajuda de IA.
 **Para o Spotify-Vinils:** referências diretas para tela de conexão,
 carregamento animado, letras sincronizadas via LRCLIB e "modo foco" com a
 capa grande e brilho na cor da capa (combina com o vinil girando).
+
+## 7. @asimov.academy: "Spotify 3D" com fitas cassete e iPod (2min05s, PT-BR)
+https://www.instagram.com/reel/DerUf07GArm/
+
+Rapaz em frente à câmera (fundo roxo) explicando, com telas inseridas no topo,
+como montou um "Spotify 3D" **sem escrever código**, só guiando a IA.
+
+**Resultado:** site "SPOTIFY 3D · Arquivo de fitas"; cada **playlist/álbum
+vira uma fita cassete 3D** (ex.: "Greatest Hits II · Queen", "Appetite for
+Destruction", "Back in Black", "reputation"), empilhadas como livros numa
+estante. Ao clicar, a fita se liga por um **fio 3D com física** a um **iPod
+clássico 3D** (click wheel, tela com capa e "Bohemian Rhapsody") que toca a
+música; o **fundo (persiana canelada animada) muda de cor conforme a capa** e
+alguns elementos reagem à batida.
+
+**Passo a passo que ele mostra:**
+1. Baixou os MP3 do YouTube no **Y2meta** e as capas no Google Imagens.
+2. Criou um projeto em branco no **Astro** (`npm create astro@latest`, pasta `spotify3d`).
+3. Abriu no **Google Antigravity IDE** (editor com agente de IA; o painel mostra um modelo Gemini Flash).
+4. Buscou referência no **Awwwards** (seção 3D) e escolheu um site de livros empilhados, trocando livros por fitas.
+5. Pediu à IA para usar **Three.js** e passou um documento de contexto ("Contrato Canônico": arquivos e o prompt de cada um, estado global em `index.astro`, IDs e z-index, fontes **Fraunces** + **JetBrains Mono**, Font Awesome, interface 100% pt-BR, `extractCoverPalette` devolvendo `{top, bottom, accent}`) "para ela não alucinar".
+6. Prompts numerados por arquivo, ex.: "Prompt 2: Modelo 3D da fita cassete → `src/scripts/tape-shelf.js`". Outros arquivos vistos: `tape-cable.js`, `color-palette.js`, `fluted-background.js`, `generate-covers.mjs`.
+7. Pediu o iPod 3D e o fio com física.
+8. Fundo e efeitos de batida: copiou prompts prontos de sites de componentes (cita "React Bits"; na tela aparece o fundo "Green Vertical Blinds" de uma biblioteca de backgrounds).
+9. "Comenta SPOTIFY que eu te mando o link."
+
+**Observações:** é um player de **arquivos locais**, sem Spotify de verdade.
+Baixar MP3 do YouTube viola os termos do YouTube e direitos autorais; serve
+só como protótipo pessoal, não para publicar.
+
+**Para o Spotify-Vinils:** é o mesmo conceito com outra mídia (fita no lugar
+do vinil). Vale copiar o **método**: referência no Awwwards, documento de
+contexto fixo para a IA, um prompt por arquivo, Three.js, paleta extraída da
+capa (`top/bottom/accent`) para o fundo, e elementos que reagem ao áudio.
