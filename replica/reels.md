@@ -59,3 +59,20 @@ respingado, preto, colorido); contador de músicas tocadas e playlist curada.
 
 **Para o Spotify-Vinils:** a referência visual principal (ver linhas
 "vinil" em `features.csv`).
+
+## 5. @oreidosites (Herbert Souza): "Criaram o SPOTIFY de graça!" (1min01s, PT-BR)
+https://www.instagram.com/reel/DecCjQyufza/
+
+Vídeo de reação (selfie) com um print de um post no X de Carmine Paolino
+(@paolino) no topo: *"Spotifast 0.12 is out! Spotify, fast, in 200MB of RAM,
+for all OSs. It now consumes 0% CPU when idle. spotifast.rocks"*, com um
+card de download "spotifast 18 MB". A fala: "recriaram o Spotify 100% de
+graça, mais otimizado, mais rápido… depois criaram todos os apps da Adobe…
+um repositório no GitHub que você coloca no seu Claude/Codex cria
+habilidades para clonar qualquer aplicação… qualquer leigo vai conseguir
+criar um software nível Spotify… isso é legal".
+
+**Checagem dos fatos:** detalhes em `replica/spotifast.md`. Resumo: o
+Spotifast existe, mas **não é** um Spotify grátis nem foi feito por uma skill
+de clonagem. É um *cliente* open source em Rust que usa a sua conta e
+**exige Premium** para tocar música.
