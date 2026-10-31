@@ -63,9 +63,9 @@ SDK** (JS), que cria um device Connect na própria página.
 | Artist Top Tracks, New Releases, Browse Categories, Markets | fev/2026 |
 | Perfil e playlists de **outros** usuários (`/users/{id}`, `/users/{id}/playlists`) | fev/2026 |
 | Endpoints de salvar/seguir por tipo (`/me/tracks` PUT/DELETE, `/me/following` etc.), trocados por `/me/library` | fev/2026 |
-| Campos: `popularity` (faixa, álbum, artista), `followers` e `genres`* do artista, `label`, `available_markets`, `album_group`, `linked_from`; do `/me`: e-mail, país, plano, filtro de explícito, seguidores | fev/2026 (`external_ids` voltou em mar/2026) |
+| Campos: `popularity` (faixa, álbum, artista), `followers` do artista, `label`, `available_markets`, `album_group`, `linked_from`; do `/me`: e-mail, país, plano, filtro de explícito, seguidores | fev/2026 (`external_ids` voltou em mar/2026) |
 
-\* conforme a lista de campos removidos para Artist; trate qualquer campo como opcional.
+Trate qualquer campo como opcional: o Spotify tem removido campos sem trocar a versão da API.
 
 ## Impacto para o Spotify-Vinils
 - **Funciona bem:** login do usuário, a biblioteca dele (álbuns e playlists
