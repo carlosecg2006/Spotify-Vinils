@@ -1,0 +1,33 @@
+feature,area,priority,original,clone,notes
+Layout 3 colunas (biblioteca / conteudo / painel direito),shell,must,yes,no,paineis arredondados com gutter de 8px
+Barra superior com Home e campo de busca,shell,must,yes,no,
+Login OAuth com a conta do usuario,auth,must,yes,no,Spotify Web API (Authorization Code + PKCE)
+Home com carrosseis e Mostrar tudo,descoberta,must,yes,no,conteudo vem da API do usuario
+Card com botao Play no hover,descoberta,must,yes,no,
+Busca com filtros em chips,busca,must,yes,no,Tudo / Musicas / Albuns / Artistas / Playlists
+Melhor resultado na busca,busca,should,yes,no,
+Navegar por categorias coloridas,busca,could,yes,no,
+Pagina de album com tracklist,conteudo,must,yes,no,
+Pagina de playlist com colunas Album e Adicionada em,conteudo,must,yes,no,
+Pagina de artista com populares e discografia,conteudo,should,yes,no,
+Pagina de faixa com recomendacoes,conteudo,could,yes,no,
+Header com cor dinamica da capa,design,must,yes,no,base do fundo do toca-discos
+Barra de reproducao (play/pause/anterior/proxima/progresso/volume),player,must,yes,no,Web Playback SDK (exige Premium)
+Shuffle e repetir,player,should,yes,no,
+Fila no painel direito,player,should,yes,no,
+Troca de dispositivo (Connect),player,could,yes,no,
+Visao Tocando agora em tela cheia,player,must,yes,no,no clone = toca-discos com vinil girando
+Vinil girando + braco da agulha (anima com play/pause),vinil,must,no,no,novo - referencia reel 4 (MD Vinyl)
+Personalizar vinil (cor / marmorizado / transparente / respingado),vinil,should,no,no,novo - referencia reel 4
+Biblioteca em coverflow 3D de capas,vinil,should,no,no,novo - referencia reel 4
+Estojo que abre e o disco entra no player,vinil,could,no,no,novo - referencia reel 3
+Temas trocaveis,design,could,no,no,referencia reel 2 (Spicetify)
+Salvar album/playlist na biblioteca,biblioteca,should,yes,no,
+Biblioteca com filtros e ordenacao,biblioteca,should,yes,no,
+Criar playlist,biblioteca,could,yes,no,
+Letra sincronizada,player,could,yes,no,sem API publica de letras - provavel skip
+Seletor de idioma,shell,could,yes,no,
+Layout mobile responsivo,shell,should,no,no,original e fraco em 390px - oportunidade
+Catalogo de musica proprio,catalogo,skip,yes,no,licenciado - usar a API com a conta do usuario
+Recomendacoes e playlists editoriais proprias,catalogo,skip,yes,no,dados/ML do Spotify
+Podcasts e audiolivros,conteudo,skip,yes,no,fora do recorte do vinil
