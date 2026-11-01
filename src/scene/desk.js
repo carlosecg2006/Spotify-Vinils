@@ -18,8 +18,8 @@ export const VIEWS = {
   stack: { pos: [-0.95, 1.25, 0.75], target: [-0.95, 0.98, -0.12], fov: 50 },
   search: { pos: [1.45, 1.3, 0.9], target: [1.45, 0.05, 0.6], fov: 48 },
   turntable: { pos: [-0.56, 1.32, 0.42], target: [-0.56, 0.76, -0.12], fov: 45 },
-  artist: { pos: [0.45, 1.38, 0.55], target: [0.45, 0.78, -0.16], fov: 46 },
-  shelf: { pos: [-1.35, 1.25, 1.2], target: [-1.95, 0.95, -0.4], fov: 52 },
+  artist: { pos: [0.45, 1.3, 0.42], target: [0.45, 0.8, -0.15], fov: 46 },
+  shelf: { pos: [-1.15, 1.4, 1.55], target: [-1.95, 0.98, -0.42], fov: 56 },
 };
 
 export function buildDesk(parent = world.scene) {

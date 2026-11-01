@@ -30,6 +30,7 @@ export const player = {
     this._startClock();
     try { await this._initSdk(); }
     catch (e) {
+      this._pollRemote();
       console.warn('SDK indisponível, usando controle remoto (Connect)', e);
       this.error = 'Não deu para tocar aqui no navegador. Vou controlar outro aparelho seu pelo Spotify Connect.';
       emit('player:error', this.error);
@@ -74,6 +75,25 @@ export const player = {
     this.duration = s.duration;
     this._lastUpdate = performance.now();
     emit('player:state', this);
+  },
+
+  /** Sem SDK: lê o estado do aparelho ativo de tempos em tempos. */
+  _pollRemote() {
+    if (this._polling) return;
+    this._polling = setInterval(async () => {
+      if (this._sdk || document.hidden) return;
+      try {
+        const s = await api('/me/player');
+        if (!s?.item) return;
+        const i = this.queue.findIndex((t) => t.uri === s.item.uri);
+        if (i >= 0 && i !== this.index) { this.index = i; emit('player:track', this.current); }
+        this.playing = !!s.is_playing;
+        this.position = s.progress_ms || 0;
+        this.duration = s.item.duration_ms || this.duration;
+        this._lastUpdate = performance.now();
+        emit('player:state', this);
+      } catch { /* sem aparelho */ }
+    }, 4000);
   },
 
   _startClock() {
@@ -200,6 +220,7 @@ export const player = {
 
   setShuffle(v) {
     this.shuffle = v; this._rebuildOrder(); emit('player:state', this);
+    if (state.mode !== 'demo' && this.current) this._resync();
   },
 
   setRepeat(mode) {

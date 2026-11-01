@@ -10,8 +10,8 @@ import { escapeHtml, clamp, releaseYear } from '../util.js';
 import { loadImage, paletteFrom } from '../services/colors.js';
 
 const BOX = { w: 0.34, h: 0.17, d: 0.3 };
-const SLOTS = 9;            // a caixa sempre parece cheia
-const GAP = 0.03;
+const SLOTS = 8;            // a caixa sempre parece cheia
+const GAP = 0.034;
 
 export const artistBox = { group: null, front: null, slots: [], albums: [], scroll: 0, scrollTarget: 0, artist: null, active: false, colors: new Map() };
 
@@ -143,8 +143,8 @@ function layoutSlots() {
       slot.cassette = null;
       if (album) {
         const cas = makeCassette(album, artistBox.colors.get(album.id) || '#3a3a3a');
-        cas.rotation.x = 1.15; // em pé, inclinada para mostrar a fita de cima
-        cas.scale.setScalar(1.6);
+        cas.rotation.x = 0.85; // em pé, inclinada para mostrar a fita de cima
+        cas.scale.setScalar(2.3);
         cas.userData.base = cas.userData.shell.color.clone();
         slot.holder.add(cas);
         slot.cassette = cas;
@@ -159,7 +159,7 @@ function layoutSlots() {
     const pos = k - frac; // 0 = frente
     const z = BOX.d / 2 - 0.035 - pos * GAP;
     const out = pos < 0; // a da frente saindo ao folhear
-    slot.holder.position.set(0, 0.04 + (out ? -pos * 0.08 : 0), z + (out ? -pos * 0.02 : 0));
+    slot.holder.position.set(0, 0.075 + (out ? -pos * 0.1 : 0), z - 0.02 + (out ? -pos * 0.03 : 0));
     slot.holder.rotation.x = out ? pos * 0.6 : 0;
     const depth = clamp(pos / SLOTS, 0, 1);
     const shade = 1 - depth * 0.85;

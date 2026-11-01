@@ -124,7 +124,8 @@ const HINTS = {
 function setView(view) {
   if (view === state.view && view !== 'artist') return;
   const from = state.view;
-  if (from !== 'inspect') prevView = from;
+  if (from === 'inspect') { inspectPanel?.close(); inspectPanel = null; closeInspect(); }
+  else prevView = from;
   clearViewUi();
   if (from === 'stack') fanStack(false);
   if (from === 'search') setSearchBoxActive(false);

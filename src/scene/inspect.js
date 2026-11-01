@@ -80,7 +80,8 @@ export async function showInspect(album, { onTrack } = {}) {
   inspect.rotY = 0; inspect.rotX = 0; inspect.snapTo = null;
   inspect.opened = false; inspect.discOnly = false;
   const sleeve = makeSleeve(album, 1);
-  sleeve.position.x = -0.18;
+  sleeve.position.x = -0.42;
+  sleeve.scale.setScalar(0.9);
   inspect.root.add(sleeve);
   inspect.sleeve = sleeve;
   interactive(sleeve, { ...inspect.dragHandlers, onClick: (h) => backClick(h) });
@@ -92,7 +93,8 @@ export async function showInspect(album, { onTrack } = {}) {
   const disc = new THREE.Mesh(new THREE.CylinderGeometry(0.47, 0.47, 0.008, 96), [new THREE.MeshStandardMaterial({ color: '#0a0a0a' }), discMat, discMat]);
   discGrp.add(disc);
   discGrp.rotation.z = Math.PI / 2; discGrp.rotation.y = Math.PI / 2;
-  discGrp.position.set(-0.18, 0, -0.004);
+  discGrp.position.set(-0.42, 0, -0.004);
+  discGrp.scale.setScalar(0.9);
   discGrp.visible = false;
   inspect.root.add(discGrp);
   inspect.disc = discGrp;
@@ -140,8 +142,9 @@ export function toggleDisc() {
   inspect.opened = !inspect.opened;
   const disc = inspect.disc, sleeve = inspect.sleeve;
   disc.visible = true;
-  const from = disc.position.x, to = inspect.opened ? 0.42 : -0.18;
-  const sFrom = sleeve.position.x, sTo = inspect.opened ? -0.42 : -0.18;
+  const from = disc.position.x, to = inspect.opened ? -0.08 : -0.42;
+  const sFrom = sleeve.position.x, sTo = inspect.opened ? -0.66 : -0.42;
+  disc.position.z = -0.02;
   const t0 = performance.now();
   inspect.snapTo = 0;
   const stop = world.onUpdate(() => {
@@ -162,8 +165,8 @@ export function discOnly(v) {
   inspect.discOnly = v;
   inspect.rotY = 0; inspect.rotX = 0;
   const t0 = performance.now();
-  const sFrom = inspect.sleeve.scale.x, sTo = v ? 0.001 : 1;
-  const dFrom = inspect.disc.position.x, dTo = v ? 0 : 0.42;
+  const sFrom = inspect.sleeve.scale.x, sTo = v ? 0.001 : 0.9;
+  const dFrom = inspect.disc.position.x, dTo = v ? -0.38 : -0.08;
   const stop = world.onUpdate(() => {
     const k = Math.min(1, (performance.now() - t0) / 600), e = ease(k);
     inspect.sleeve.scale.setScalar(sFrom + (sTo - sFrom) * e);

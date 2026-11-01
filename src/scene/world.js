@@ -50,9 +50,10 @@ export const world = {
     canvasEl.addEventListener('pointerleave', () => { this.pointer.set(-9, -9); });
 
     const loop = () => {
-      const dt = Math.min(this.clock.getDelta(), 0.05);
+      const raw = this.clock.getDelta();
+      const dt = Math.min(raw, 0.05);
       this.time += dt;
-      this._updateCamera(dt);
+      this._updateCamera(Math.min(raw, 0.5));
       this.updaters.forEach((fn) => fn(dt, this.time));
       this._pick();
       renderer.clear();

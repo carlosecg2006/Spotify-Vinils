@@ -68,6 +68,10 @@ export function buildShelf(parent = world.scene) {
     shelf.rows[row.key] = { group: grp, row, items: [], offset: 0 };
   });
   buildDrawers();
+  // luz quente iluminando as prateleiras
+  const lamp = new THREE.PointLight('#ffd9a8', 2.2, 2.6, 1.6);
+  lamp.position.set(0.1, 1.5, 0.9);
+  g.add(lamp);
   // troféu (+)
   const trophy = makeTrophy();
   trophy.position.set(W / 2 - 0.12, 0, 0.03);
